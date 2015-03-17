@@ -66,6 +66,10 @@ set_config 'database_mysql' 'port' "$KIPPO_DB_PORT" $CONFIG
 # create kippo database
 mysql -h $KIPPO_DB_HOST -u $KIPPO_DB_USER -p${KIPPO_DB_PASSWORD} -e "create database ${KIPPO_DB_NAME};"
 
+#GRANT ALL ON kippo.* TO 'kippo'@'localhost' IDENTIFIED BY 'Kippo-DB-pass';
+mysql -h $KIPPO_DB_HOST -u $KIPPO_DB_USER -p${KIPPO_DB_PASSWORD} -e \
+	"GRANT ALL ON ${KIPPO_DB_NAME}.* TO '${KIPPO_DB_USER}'@'%' IDENTIFIED BY '${KIPPO_DB_PASSWORD}';"
+
 mysql -h $KIPPO_DB_HOST -u $KIPPO_DB_USER -p${KIPPO_DB_PASSWORD} -e "use ${KIPPO_DB_NAME}; source ${KIPPO_SQL_SCRIPT};"
 
 exec "$@"
