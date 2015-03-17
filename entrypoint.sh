@@ -2,6 +2,7 @@
 set -e
 
 CONFIG="/opt/kippo/kippo.cfg"
+KIPPO_SQL_SCRIPT="/opt/kippo/doc/sql/mysql.sql"
 
 if [ -n "$MYSQL_PORT_3306_TCP" ]; then
 	KIPPO_DB_HOST='mysql'
@@ -61,5 +62,10 @@ set_config 'database_mysql' 'database' "$KIPPO_DB_NAME" $CONFIG
 set_config 'database_mysql' 'username' "$KIPPO_DB_USER" $CONFIG
 set_config 'database_mysql' 'password' "$KIPPO_DB_PASSWORD" $CONFIG
 set_config 'database_mysql' 'port' "$KIPPO_DB_PORT" $CONFIG
+
+# create kippo database
+mysql -h $KIPPO_DB_HOST -u $KIPPO_DB_USER -p${KIPPO_DB_PASSWORD} -e "create database ${KIPPO_DB_NAME};"
+
+mysql -h $KIPPO_DB_HOST -u $KIPPO_DB_USER -p${KIPPO_DB_PASSWORD} -e "use ${KIPPO_DB_NAME}; source ${KIPPO_SQL_SCRIPT};"
 
 exec "$@"
