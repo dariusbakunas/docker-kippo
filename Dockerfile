@@ -5,6 +5,7 @@ RUN apt-get update -y && apt-get install -y \
 	authbind \
 	dos2unix \
 	git \
+	mysql-client \
 	openssl \
 	python-dev \
 	python-openssl \
