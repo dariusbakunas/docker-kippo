@@ -1,6 +1,5 @@
-# docker-kippo
 
-This repository contains configuration files necessary to build a docker image with kippo preinstalled. It uses Kippo Fork by [micheloosterhof](https://github.com/micheloosterhof/kippo) with additional features including SFTP support, direct-tcp, exec stdin logging, ssh algorithm update, json logging, etc
+This container uses Kippo Fork by [micheloosterhof](https://github.com/micheloosterhof/kippo) with additional features including SFTP support, direct-tcp, exec stdin logging, ssh algorithm update, json logging, etc
 
 # Kippo
 
@@ -8,10 +7,19 @@ Kippo is a medium interaction SSH honeypot designed to log brute force attacks a
 
 Kippo is inspired, but not based on [Kojoney](http://kojoney.sourceforge.net/).
 
-## Features
+# How to use this image
 
-Some interesting features:
-* Fake filesystem with the ability to add/remove files. A full fake filesystem resembling a Debian 5.0 installation is included
-* Possibility of adding fake file contents so the attacker can 'cat' files such as /etc/passwd. Only minimal file contents are included
-* Session logs stored in an [UML Compatible](http://user-mode-linux.sourceforge.net/)  format for easy replay with original timings
-* Just like Kojoney, Kippo saves files downloaded with wget for later inspection
+	docker run -P -d --name kippo --link some-mysql:mysql
+	
+You can also specify following environment variables:  
+
+* `-e KIPPO_DB_HOST=...` (defaults to IP of the linked mysql container)
+* `-e KIPPO_DB_PORT=...` (defaults to 3306)
+* `-e KIPPO_DB_PASSWORD=...` (defaults to the value of the MYSQL_ROOT_PASSWORD environment variable from the linked mysql container)
+* `-e KIPPO_DB_USER=...` (defaults to root)
+* `-e KIPPO_DB_NAME=...` (defaults to kippo)
+
+You can use existing mysql container like this:
+
+	docker run --name mysql -P -e MYSQL_ROOT_PASSWORD=YOURPASSWORD -d mysql
+	
