@@ -1,11 +1,16 @@
 FROM ubuntu:14.04
 MAINTAINER Darius Bakunas-Milanowski <bakunas@gmail.com>
 
-RUN apt-get update -y
-RUN apt-get dist-upgrade -y
-
-RUN apt-get install -y git python-dev openssl python-openssl \
-python-pyasn1 python-twisted authbind dos2unix supervisor
+RUN apt-get update -y && apt-get install -y \
+	authbind \
+	dos2unix \
+	git \
+	openssl \
+	python-dev \
+	python-openssl \
+	python-pyasn1 \
+	python-twisted \	
+	supervisor
 
 # add kippo user that can't login
 RUN useradd -r -s /bin/false kippo
