@@ -5,7 +5,7 @@ RUN apt-get update -y
 RUN apt-get dist-upgrade -y
 
 RUN sudo apt-get install -y git python-dev openssl python-openssl \
-python-pyasn1 python-twisted authbind dos2unix
+python-pyasn1 python-twisted authbind dos2unix supervisor
 
 # add kippo user that can't login
 RUN sudo useradd -r -s /bin/false kippo
@@ -16,7 +16,7 @@ RUN sudo git clone https://github.com/micheloosterhof/kippo.git /opt/kippo/
 RUN sudo cp /opt/kippo/kippo.cfg.dist /opt/kippo/kippo.cfg
 
 # apply configuration
-RUN sudo sed -i 's/ssh_port = 2222/ssh_port = 22/g' /opt/kippo/kippo.cfg
+RUN sudo sed -i 's/#listen_port = 2222/listen_port = 22/g' /opt/kippo/kippo.cfg
 RUN sudo sed -i 's/hostname = svr03/hostname = station01/g' /opt/kippo/kippo.cfg
 RUN sudo sed -i 's/log_path = log/log_path = \/var\/kippo\/log/g' \
 /opt/kippo/kippo.cfg
@@ -46,9 +46,10 @@ RUN sudo touch /etc/authbind/byport/22
 RUN sudo chown kippo /etc/authbind/byport/22
 RUN sudo chmod 777 /etc/authbind/byport/22
 
-# start it
-ADD kippo /etc/init.d/kippo
-RUN sudo dos2unix /etc/init.d/kippo
-RUN sudo chmod 0755 /etc/init.d/kippo
-RUN sudo update-rc.d kippo defaults
-RUN sudo service kippo start
+# add config for supervisord
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+EXPOSE 22
+
+# start supervisor on launch
+CMD ["/usr/bin/supervisord"]
