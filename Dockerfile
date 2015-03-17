@@ -8,6 +8,7 @@ RUN apt-get update -y && apt-get install -y \
 	mysql-client \
 	openssl \
 	python-dev \
+	python-mysqldb \
 	python-openssl \
 	python-pyasn1 \
 	python-twisted \	
