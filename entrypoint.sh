@@ -4,6 +4,9 @@ set -e
 CONFIG="/opt/kippo/kippo.cfg"
 KIPPO_SQL_SCRIPT="/opt/kippo/doc/sql/mysql.sql"
 
+: ${KIPPO_DB_USER:=root}
+: ${KIPPO_DB_NAME:=kippo}
+
 if [ -n "$MYSQL_PORT_3306_TCP" ]; then
 	KIPPO_DB_HOST='mysql'
 	KIPPO_DB_PORT='3306'
@@ -30,9 +33,6 @@ if [ -z "$KIPPO_DB_PASSWORD" ]; then
 	echo >&2 '  with -e KIPPO_DB_PASSWORD=password'
 	exit 1
 fi
-
-: ${KIPPO_DB_USER:=root}
-: ${KIPPO_DB_NAME:=kippo}
 
 uncomment_option(){
 	section="$1"
