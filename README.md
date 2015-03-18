@@ -22,6 +22,10 @@ You can also specify following environment variables:
 * `-e KIPPO_DB_USER=...` (defaults to root)
 * `-e KIPPO_DB_NAME=...` (defaults to kippo)
 
+Additional settings:
+
+* `-e KIPPO_SRV_NAME=...` (defaults to station01, this is fake SSH server hostname)
+
 To start mysql container:
 
 	$ docker run --name some-mysql -P -e MYSQL_ROOT_PASSWORD=YOURPASSWORD -d mysql

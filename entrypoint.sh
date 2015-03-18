@@ -6,6 +6,8 @@ KIPPO_SQL_SCRIPT="/opt/kippo/doc/sql/mysql.sql"
 
 : ${KIPPO_DB_USER:=root}
 : ${KIPPO_DB_NAME:=kippo}
+: ${KIPPO_PORT:=22}
+: ${KIPPO_SRV_NAME:=station01}
 
 if [ -n "$MYSQL_PORT_3306_TCP" ]; then
 	KIPPO_DB_HOST='mysql'
@@ -48,6 +50,13 @@ set_config(){
 	file="$4"
 	sed -i -e "/^\[$section\]/,/^\[.*\]/ s|^\($option[ \t]*=[ \t]*\).*$|\1$value|" "$file"
 }
+
+uncomment_option 'honeypot' 'listen_port' $CONFIG
+
+set_config 'honeypot' 'listen_port' "$KIPPO_PORT" $CONFIG
+set_config 'honeypot' 'hostname' "$KIPPO_SRV_NAME" $CONFIG
+set_config 'honeypot' 'log_path' "/var/kippo/log" $CONFIG
+set_config 'honeypot' 'download_path' "/var/kippo/dl" $CONFIG
 
 sed -i -e "s/^#\[database_mysql\]/\[database_mysql\]/" $CONFIG
 

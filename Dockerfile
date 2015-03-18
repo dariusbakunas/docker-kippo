@@ -22,14 +22,6 @@ RUN mkdir /opt/kippo/ && \
 	git clone https://github.com/micheloosterhof/kippo.git /opt/kippo/ && \
 	cp /opt/kippo/kippo.cfg.dist /opt/kippo/kippo.cfg
 
-# apply configuration
-RUN sed -i 's/#listen_port = 2222/listen_port = 22/g' /opt/kippo/kippo.cfg && \
-	sed -i 's/hostname = svr03/hostname = station01/g' /opt/kippo/kippo.cfg && \
-	sed -i 's/log_path = log/log_path = \/var\/kippo\/log/g' /opt/kippo/kippo.cfg && \
-	sed -i 's/download_path = dl/download_path = \/var\/kippo\/dl/g' /opt/kippo/kippo.cfg && \
-	sed -i 's/twistd -y kippo.tac -l log\/kippo.log --pidfile kippo.pid/authbind --deep twistd -y kippo.tac -l log\/kippo.log --pidfile kippo.pid/g' \
-/opt/kippo/start.sh
-
 # set up log dirs
 RUN mkdir -p /var/kippo/dl /var/kippo/log/tty /var/run/kippo
 
