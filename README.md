@@ -9,7 +9,14 @@ Kippo is inspired, but not based on [Kojoney](http://kojoney.sourceforge.net/).
 
 # How to use this image
 
-	$ docker run -P -d --name kippo --link some-mysql:mysql dariusbakunas/kippo
+	Start mysql container first:
+
+	$ docker run --name some-mysql -P -e MYSQL_ROOT_PASSWORD=YOURPASSWORD -d mysql
+
+	Start kippo container:
+
+	$ mkdir -p $PWD/kippo
+	$ docker run -P -d --name kippo --link some-mysql:mysql -v $PWD/kippo:/var/kippo dariusbakunas/kippo
 
 	$ docker port kippo
 	22/tcp -> 0.0.0.0:49166
@@ -24,9 +31,4 @@ You can also specify following environment variables:
 
 Additional settings:
 
-* `-e KIPPO_SRV_NAME=...` (defaults to station01, this is fake SSH server hostname)
-
-To start mysql container:
-
-	$ docker run --name some-mysql -P -e MYSQL_ROOT_PASSWORD=YOURPASSWORD -d mysql
-	
+* `-e KIPPO_SRV_NAME=...` (defaults to station01, this is fake SSH server hostname)	
