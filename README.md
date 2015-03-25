@@ -15,7 +15,6 @@ Kippo is inspired, but not based on [Kojoney](http://kojoney.sourceforge.net/).
 
 	Start kippo container:
 
-	$ mkdir -p $PWD/kippo
 	$ docker run -P -d --name kippo --link some-mysql:mysql dariusbakunas/kippo
 
 	$ docker port kippo
