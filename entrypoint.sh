@@ -75,7 +75,7 @@ set_config 'database_mysql' 'port' "$KIPPO_DB_PORT" $CONFIG
 # check if database already exist
 RESULT=`mysql -u $KIPPO_DB_USER -p$KIPPO_DB_PASSWORD -h $KIPPO_DB_HOST --skip-column-names -e "SHOW DATABASES LIKE '$KIPPO_DB_NAME'"`
 
-if ["$RESULT" != $KIPPO_DB_NAME]; then
+if [ "$RESULT" != $KIPPO_DB_NAME ]; then
 	# create kippo database
 	mysql -h $KIPPO_DB_HOST -u $KIPPO_DB_USER -p${KIPPO_DB_PASSWORD} -e "create database ${KIPPO_DB_NAME};"
 
