@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER Darius Bakunas-Milanowski <bakunas@gmail.com>
 
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get update -yqq && apt-get install -yqq \
 	authbind \
 	dos2unix \
 	git \
@@ -30,13 +30,16 @@ RUN rm -rf /opt/kippo/dl
 # RUN sudo rm -rf /opt/kippo/log
 
 # set up permissions
-RUN chown -R kippo:kippo /opt/kippo/ && chown -R kippo:kippo /var/kippo/ && chown -R kippo:kippo /var/run/kippo/
+RUN chown -R kippo:kippo /opt/kippo/ && chown -R kippo:kippo /var/run/kippo/
 
 # allow binding to 22 port
 RUN touch /etc/authbind/byport/22 && chown kippo /etc/authbind/byport/22 && chmod 777 /etc/authbind/byport/22
 
 # add config for supervisord
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+RUN chown -R kippo:kippo /var/kippo
+VOLUME /var/kippo
 
 EXPOSE 22
 
