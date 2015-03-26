@@ -19,6 +19,10 @@ Kippo is inspired, but not based on [Kojoney](http://kojoney.sourceforge.net/).
 
 	$ docker port kippo
 	22/tcp -> 0.0.0.0:49166
+
+	# /var/kippo directory is a docker volume (it has kippo dl and log folders), which can be accessed like this:
+
+	$ docker run -ti --volumes-from kippo ubuntu:14.04 /bin/bash
 	
 You can also specify following environment variables:  
 
