@@ -9,18 +9,18 @@ Kippo is inspired, but not based on [Kojoney](http://kojoney.sourceforge.net/).
 
 # How to use this image
 
-	Start mysql container first:
+Start mysql container first:
 
 	$ docker run --name some-mysql -P -e MYSQL_ROOT_PASSWORD=YOURPASSWORD -d mysql
 
-	Start kippo container:
+Start kippo container:
 
 	$ docker run -P -d --name kippo --link some-mysql:mysql dariusbakunas/kippo
 
 	$ docker port kippo
 	22/tcp -> 0.0.0.0:49166
 
-	# /var/kippo directory is a docker volume (it has kippo dl and log folders), which can be accessed like this:
+*/var/kippo* directory is docker volume (it includes kippo dl and log folders). It can be accessed like this:
 
 	$ docker run -ti --volumes-from kippo ubuntu:14.04 /bin/bash
 	
