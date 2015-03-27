@@ -24,6 +24,10 @@ Start kippo container:
 
 	$ docker run -ti --volumes-from kippo ubuntu:14.04 /bin/bash
 	
+You can also start my kippo-graph container to visualize kippo logs:
+	
+	$ docker run -d -P --link some-mysql:mysql --name kippo-graph dariusbakunas/kippo-graph:latest
+	
 You can also specify following environment variables:  
 
 * `-e KIPPO_DB_HOST=...` (defaults to IP of the linked mysql container)
