@@ -36,15 +36,15 @@ RUN useradd -r -s /bin/false kippo && \
 	touch /etc/authbind/byport/22 && chown kippo /etc/authbind/byport/22 && chmod 777 /etc/authbind/byport/22
 
 # add config for supervisord
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY entrypoint.sh /entrypoint.sh
 
-RUN chown -R kippo:kippo /var/kippo
+RUN chown -R kippo:kippo /var/kippo && \
+	chmod +x /entrypoint.sh
+
 VOLUME /var/kippo
 
 EXPOSE 22
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 
