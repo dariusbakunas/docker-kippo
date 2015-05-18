@@ -40,10 +40,10 @@ Additional settings:
 
 * `-e KIPPO_SRV_NAME=...` (defaults to station01, this is fake SSH server hostname)	
 
-# One command to start it all
+# Use Docker Compose:
 
 	$ wget https://cdn.rawgit.com/dariusbakunas/docker-kippo/master/docker-compose.yml && docker-compose up
 
-	Note: If kippo container doesn't start for the first time, try stopping all containers and starting them again:
+*Note: If kippo container doesn't start for the first time, try stopping all containers and starting them again:*
 
 	$ docker-compose stop && docker-compose start
