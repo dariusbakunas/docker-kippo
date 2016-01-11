@@ -13,6 +13,8 @@ Start mysql container first:
 
 	$ docker run --name some-mysql -P -e MYSQL_ROOT_PASSWORD=YOURPASSWORD -d mysql
 
+**Note:** kippo-graph does not work properly with mysql:5.7, please use mysql:5.6 instead
+
 Start kippo container:
 
 	$ docker run -P -d --name kippo --link some-mysql:mysql dariusbakunas/kippo
